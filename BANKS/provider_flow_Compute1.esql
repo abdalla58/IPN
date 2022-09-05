@@ -1,0 +1,80 @@
+
+
+CREATE COMPUTE MODULE provider_flow_Compute1
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		
+		IF InputRoot.JSON.Data.username = Environment.Variables.Data.username THEN
+			IF Environment.Variables.Data.sender_channel = 'wallet' THEN
+				IF InputRoot.JSON.Data.wallet_number = Environment.Variables.Data.wallet_number THEN
+					IF InputRoot.JSON.Data.wallet_balance >= Environment.Variables.Data.amount THEN
+						SET OutputRoot.JSON.Data.msg = 'validation DONE';
+						SET Environment.Varaiables.holding = true;
+					ELSE 
+						SET OutputRoot.JSON.Data.msg = 'amount not valid';
+					END IF;
+				ELSE
+					SET OutputRoot.JSON.Data.msg = 'wallet number not valid';
+				END IF;	
+			
+			ELSE IF Environment.Variables.Data.sender_channel = 'account' THEN
+				IF InputRoot.JSON.Data.acc_number = Environment.Variables.Data.acc_number THEN
+					IF InputRoot.JSON.Data.acc_balance >= Environment.Variables.Data.amount THEN
+						SET OutputRoot.JSON.Data.msg = 'validation DONE';
+						SET Environment.Varaiables.holding = true;
+					ELSE 
+						SET OutputRoot.JSON.Data.msg = 'amount not valid';
+					END IF;
+				ELSE
+					SET OutputRoot.JSON.Data.msg = 'acc number not valid';
+				END IF;
+				
+			ELSE IF Environment.Variables.Data.sender_channel = 'card' THEN
+				IF InputRoot.JSON.Data.card_number = Environment.Variables.Data.card_number THEN
+					IF InputRoot.JSON.Data.card_balance >= Environment.Variables.Data.amount THEN
+						SET OutputRoot.JSON.Data.msg = 'validation DONE';
+						SET Environment.Varaiables.holding = true;
+					ELSE 
+						SET OutputRoot.JSON.Data.msg = 'amount not valid';
+					END IF;
+				ELSE
+					SET OutputRoot.JSON.Data.msg = 'card number not valid';
+				END IF;
+			END IF;
+			END IF;
+			END IF;
+			
+			
+		ELSE
+			SET OutputRoot.JSON.Data.msg = 'username not correct';
+		END IF;
+		 
+		 
+		 SET OutputRoot.JSON.Data.holding = Environment.Varaiables.holding;
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+	END;
+END MODULE;
