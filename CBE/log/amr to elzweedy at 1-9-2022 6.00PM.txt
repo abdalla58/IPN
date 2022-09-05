@@ -1,0 +1,29 @@
+
+{
+  "id": 1,
+  "sender": "amr",
+  "receiver": "elzweedy",
+  "provider_bank":"misr",
+  "acquirer_bank": "QNB",
+  "money": 67.32753352,
+  "date_time": "1-9-2022 6.00PM"
+
+}{
+  "id": 1,
+  "sender": "amr",
+  "receiver": "elzweedy",
+  "provider_bank":"misr",
+  "acquirer_bank": "QNB",
+  "money": 67.32753352,
+  "date_time": "1-9-2022 6.00PM"
+
+}{
+  "id": 2,
+  "sender": "amr",
+  "receiver": "elzweedy",
+  "provider_bank":"misr",
+  "acquirer_bank": "QNB",
+  "money": 67.32753352,
+  "date_time": "1-9-2022 6.00PM"
+
+}

@@ -1,0 +1,447 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "title" : "ipn_services",
+    "description" : "ipn_services",
+    "version" : "1.0.0"
+  },
+  "servers" : [ {
+    "url" : "http://localhost:7800"
+  } ],
+  "paths" : {
+    "/user/register" : {
+      "summary" : "API send data of user to register a new user to get validation",
+      "post" : {
+        "summary" : "send data from user to psp",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/User"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "success",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "invalid",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/psp/register" : {
+      "summary" : "API send data of user to register a new user to get validation",
+      "post" : {
+        "summary" : "send data from psp to cbe",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/User"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "success",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "invalid",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cbe/register" : {
+      "summary" : "API send data of user to register a new user to get validation",
+      "post" : {
+        "summary" : "send data from cbe to bank",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/User"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "success",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "invalid",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    
+    "/send_log" : {
+      "summary" : "API send log data of the transactions from psp to cbe",
+      "post" : {
+        "summary" : "send log data from psp to cbe",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Transaction"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "success",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "failed",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    
+    
+    "/sender/validation" : {
+      "summary" : "API to get validation from provider bank to make transaction",
+      "post" : {
+        "summary" : "get provider bank validation",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Transaction"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "success",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "failed",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    
+    
+    "/receiver/validation" : {
+      "summary" : "API to get validation from acquirer bank to make transaction",
+      "post" : {
+        "summary" : "get acquirer bank validation",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Transaction"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "success",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "failed",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/receiver/addBalance" : {
+      "summary" : "API to add amount to the receiver account",
+      "put" : {
+        "summary" : "add amount",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Transaction"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "success",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "failed",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    
+    
+    "/provider/withdrawBalance" : {
+      "summary" : "API to remove amount to the receiver account",
+      "put" : {
+        "summary" : "remove bank",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Transaction"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "success",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "failed",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  
+  
+  "components" : {
+    "schemas" : {
+      "User" : {
+        "type" : "object",
+        "properties" : {
+          "national_id" : {
+            "type" : "string"
+          },
+          "username" : {
+            "type" : "string",
+            "example" : "theUser"
+          },
+          "password" : {
+            "type" : "string",
+            "example" : "12345"
+          },
+          "channel" : {
+          	"type" : "string",
+          	"example" : "wallet"
+          },
+          "acc_number" : {
+            "type" : "string"
+          },
+          "card_number" : {
+            "type" : "string"
+          },
+          "wallet_number" : {
+            "type" : "string"
+          },
+          "phone" : {
+            "type" : "string",
+            "example" : "12345"
+          },
+          "acc_balance" : {
+           	"type" : "integer",
+           	"minimum" : 0
+          },
+          "card_balance" : {
+           	"type" : "integer",
+           	"minimum" : 0
+          },
+          "wallet_balance" : {
+           	"type" : "integer",
+           	"minimum" : 0
+          }
+        },
+        "xml" : {
+          "name" : "user"
+        }
+      },
+      
+      
+      "Transaction" : {
+        "type" : "object",
+        "properties" : {
+          "sender_ID" : {
+            "type" : "string"
+          },
+          "receiver_ID" : {
+            "type" : "string"
+          },
+          "sender_name" : {
+            "type" : "string",
+            "example" : "ahmed"
+          },
+          "receiver_name" : {
+            "type" : "string",
+            "example" : "yasser"
+          },
+          "sender_channel" : {
+          	"type" : "string",
+          	"example" : "wallet"
+          },
+          "receiver_channel" : {
+          	"type" : "string",
+          	"example" : "wallet"
+          },
+          
+          "sender_acc_number" : {
+            "type" : "string"
+          },
+          "sender_card_number" : {
+            "type" : "string"
+          },
+          "sender_wallet_number" : {
+            "type" : "string"
+          },
+          "receiver_acc_number" : {
+            "type" : "string"
+          },
+          "receiver_card_number" : {
+            "type" : "string"
+          },
+          "receiver_wallet_number" : {
+            "type" : "string"
+          },
+          
+          "provider_bank" : {
+            "type" : "string",
+            "example" : "CIB"
+          },
+          "acquirer_bank" : {
+            "type" : "string",
+            "example" : "QNB"
+          },
+          "amount" : {
+            "type" : "number",
+            "minimum" : 0
+          },
+          "date_time" : {
+            "type" : "string",
+            "example" : "1-9-2022 6.00PM" 
+          }
+          
+        },
+        "xml" : {
+          "name" : "transaction"
+        }
+      }
+    }
+  }
+}
