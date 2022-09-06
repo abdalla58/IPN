@@ -7,11 +7,14 @@ CREATE COMPUTE MODULE provider_flow_Compute
 		CALL CopyEntireMessage();
 				 
 		 
-		 SET OutputLocalEnvironment.Destination.File.Name = InputRoot.JSON.Data.national_id || '.txt';
+		 SET OutputLocalEnvironment.Destination.File.Name = InputRoot.JSON.Data.sender_ID || '.txt';
 
 		 
 		 SET Environment.Variables.Data = InputRoot.JSON.Data;
-		 SET Environment.Varaiables.holding = false;
+		 SET Environment.Variables.hold = false;
+  		 SET Environment.Variables.withdraw = false;
+		 
+		 
 		RETURN TRUE;
 	END;
 

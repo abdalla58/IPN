@@ -1,10 +1,17 @@
 
 
-CREATE COMPUTE MODULE provider_flow_Compute2
+CREATE COMPUTE MODULE acquirer_flow_Compute
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
 		-- CALL CopyMessageHeaders();
-		SET OutputRoot.JSON.Data.msg = 'national id of sender not found';
+		
+		CALL CopyEntireMessage();
+		
+		SET OutputLocalEnvironment.Destination.File.Name = InputRoot.JSON.Data.receiver_ID || '.txt';
+		
+		SET Environment.Variables.Data = InputRoot.JSON.Data;
+		SET Environment.Variables.add = false;
+		
 		RETURN TRUE;
 	END;
 
