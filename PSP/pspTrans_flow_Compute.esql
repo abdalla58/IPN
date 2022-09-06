@@ -5,17 +5,16 @@ CREATE COMPUTE MODULE pspTrans_flow_Compute
 	BEGIN
 		-- CALL CopyMessageHeaders();
 --	 CALL CopyEntireMessage();
-
-		SET OutputRoot.JSON.Data.national_id = InputRoot.JSON.Data.sender_ID;
-		SET OutputRoot.JSON.Data.username = InputRoot.JSON.Data.sender_name;
-		SET OutputRoot.JSON.Data.amount = InputRoot.JSON.Data.amount;
-		SET OutputRoot.JSON.Data.sender_channel = InputRoot.JSON.Data.sender_channel;
-		SET OutputRoot.JSON.Data.date_time = InputRoot.JSON.Data.date_time;
-		
-		SET OutputRoot.JSON.Data.acc_number = InputRoot.JSON.Data.sender_acc_number;
-		SET OutputRoot.JSON.Data.card_number = InputRoot.JSON.Data.sender_card_number;
-		SET OutputRoot.JSON.Data.wallet_number = InputRoot.JSON.Data.sender_wallet_number;
-
+--		SET OutputRoot.JSON.Data.national_id = InputRoot.JSON.Data.sender_ID;
+--		SET OutputRoot.JSON.Data.username = InputRoot.JSON.Data.sender_name;
+--		SET OutputRoot.JSON.Data.amount = InputRoot.JSON.Data.amount;
+--		SET OutputRoot.JSON.Data.sender_channel = InputRoot.JSON.Data.sender_channel;
+--		SET OutputRoot.JSON.Data.date_time = InputRoot.JSON.Data.date_time;
+--		
+--		SET OutputRoot.JSON.Data.acc_number = InputRoot.JSON.Data.sender_acc_number;
+--		SET OutputRoot.JSON.Data.card_number = InputRoot.JSON.Data.sender_card_number;
+--		SET OutputRoot.JSON.Data.wallet_number = InputRoot.JSON.Data.sender_wallet_number;
+		SET OutputRoot.JSON.Data = InputRoot.JSON.Data;
 		
 		RETURN TRUE;
 	END;
