@@ -1,15 +1,18 @@
 
 
-CREATE COMPUTE MODULE pspTrans_flow_Compute3
+CREATE COMPUTE MODULE pspTrans_flow_Compute4
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
-		
-		
-		IF InputRoot.JSON.Data.withdraw = true THEN
-			SET OutputRoot.JSON.Data = Environment.Variables.Data;
-		END IF;
 		-- CALL CopyMessageHeaders();
-		-- CALL CopyEntireMessage();
+		
+		IF InputRoot.JSON.Data.add = true THEN
+			SET OutputRoot.JSON.Data.msq = 'Transaction success, please check your balance';
+		END IF;		 
+		 
+		
+		
+		
+		
 		
 		RETURN TRUE;
 	END;

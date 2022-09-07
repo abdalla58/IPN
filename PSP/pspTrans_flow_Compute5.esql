@@ -1,16 +1,14 @@
 
 
-CREATE COMPUTE MODULE pspTrans_flow_Compute3
+CREATE COMPUTE MODULE pspTrans_flow_Compute5
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
-		
-		
-		IF InputRoot.JSON.Data.withdraw = true THEN
-			SET OutputRoot.JSON.Data = Environment.Variables.Data;
-		END IF;
 		-- CALL CopyMessageHeaders();
-		-- CALL CopyEntireMessage();
+		 --CALL CopyEntireMessage();
 		
+		SET Environment.Variables.add = InputRoot.JSON.Data.add;
+		
+
 		RETURN TRUE;
 	END;
 

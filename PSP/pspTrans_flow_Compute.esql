@@ -14,6 +14,7 @@ CREATE COMPUTE MODULE pspTrans_flow_Compute
 --		SET OutputRoot.JSON.Data.acc_number = InputRoot.JSON.Data.sender_acc_number;
 --		SET OutputRoot.JSON.Data.card_number = InputRoot.JSON.Data.sender_card_number;
 --		SET OutputRoot.JSON.Data.wallet_number = InputRoot.JSON.Data.sender_wallet_number;
+		
 		SET OutputRoot.JSON.Data = InputRoot.JSON.Data;
 		
 		RETURN TRUE;
