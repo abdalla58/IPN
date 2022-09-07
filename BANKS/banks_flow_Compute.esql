@@ -9,18 +9,8 @@ CREATE COMPUTE MODULE banks_flow_Compute
 		 
 		 SET OutputLocalEnvironment.Destination.File.Name = InputRoot.JSON.Data.national_id || '.txt';
 
-		 
-		 
 		 SET Environment.Variables.Data = InputRoot.JSON.Data;
---		 if InputRoot.JSON.Data.username <> 'mohsen' then
---		 	CALL CopyEntireMessage();
---		 	SET OutputRoot.JSON.Data.msg = 'invalid registration';
---
---		 ELSE
---		 	CALL CopyEntireMessage();
---		 	SET OutputRoot.JSON.Data.msg = 'validation DONE';
---		 	
---		 END IF;
+
 		RETURN TRUE;
 	END;
 

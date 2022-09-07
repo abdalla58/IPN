@@ -4,6 +4,7 @@ CREATE COMPUTE MODULE pspTrans_flow_Compute2
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
 		IF InputRoot.JSON.Data.msg = 'validation DONE' THEN 
+			SET Environment.Variables.Data = InputRoot.JSON.Data;
 			CALL CopyEntireMessage();
 			PROPAGATE TO TERMINAL 0;
 			RETURN FALSE;

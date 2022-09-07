@@ -8,7 +8,11 @@ CREATE COMPUTE MODULE banks_flow_Compute1
 		IF InputRoot.JSON.Data.username = Environment.Variables.Data.username THEN
 			IF Environment.Variables.Data.channel = 'wallet' THEN
 				IF InputRoot.JSON.Data.wallet_number = Environment.Variables.Data.wallet_number THEN
-					CALL CopyEntireMessage();
+					SET OutputRoot.JSON.Data.national_id = InputRoot.JSON.Data.national_id;
+					SET OutputRoot.JSON.Data.username = InputRoot.JSON.Data.username;
+					SET OutputRoot.JSON.Data.wallet_number = InputRoot.JSON.Data.wallet_number;
+					SET OutputRoot.JSON.Data.phone = InputRoot.JSON.Data.phone;
+					SET OutputRoot.JSON.Data.wallet_balance = InputRoot.JSON.Data.wallet_balance;
 					SET OutputRoot.JSON.Data.msg = 'validation DONE';
 				ELSE
 					SET OutputRoot.JSON.Data = Environment.Variables.Data;
@@ -17,7 +21,11 @@ CREATE COMPUTE MODULE banks_flow_Compute1
 			
 			ELSE IF Environment.Variables.Data.channel = 'account' THEN
 				IF InputRoot.JSON.Data.acc_number = Environment.Variables.Data.acc_number THEN
-					CALL CopyEntireMessage();
+					SET OutputRoot.JSON.Data.national_id = InputRoot.JSON.Data.national_id;
+					SET OutputRoot.JSON.Data.username = InputRoot.JSON.Data.username;
+					SET OutputRoot.JSON.Data.acc_number = InputRoot.JSON.Data.acc_number;
+					SET OutputRoot.JSON.Data.phone = InputRoot.JSON.Data.phone;
+					SET OutputRoot.JSON.Data.acc_balance = InputRoot.JSON.Data.acc_balance;
 					SET OutputRoot.JSON.Data.msg = 'validation DONE';
 				ELSE 
 					SET OutputRoot.JSON.Data = Environment.Variables.Data;
@@ -26,7 +34,11 @@ CREATE COMPUTE MODULE banks_flow_Compute1
 			
 			ELSE IF Environment.Variables.Data.channel = 'card' THEN
 				IF InputRoot.JSON.Data.card_number = Environment.Variables.Data.card_number THEN
-					CALL CopyEntireMessage();
+					SET OutputRoot.JSON.Data.national_id = InputRoot.JSON.Data.national_id;
+					SET OutputRoot.JSON.Data.username = InputRoot.JSON.Data.username;
+					SET OutputRoot.JSON.Data.card_number = InputRoot.JSON.Data.card_number;
+					SET OutputRoot.JSON.Data.phone = InputRoot.JSON.Data.phone;
+					SET OutputRoot.JSON.Data.card_balance = InputRoot.JSON.Data.card_balance;
 					SET OutputRoot.JSON.Data.msg = 'validation DONE';
 				ELSE 
 					SET OutputRoot.JSON.Data = Environment.Variables.Data;

@@ -1,15 +1,14 @@
 
 
-CREATE COMPUTE MODULE pspTrans_flow_Compute3
+CREATE COMPUTE MODULE user_flow_Compute2
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
 		
+		SET OutputLocalEnvironment.Destination.File.Name = InputRoot.JSON.Data.username || '.txt';
 		
-		IF InputRoot.JSON.Data.withdraw = true THEN
-			SET OutputRoot.JSON.Data = Environment.Variables.Data;
-		END IF;
-		-- CALL CopyMessageHeaders();
-		-- CALL CopyEntireMessage();
+		SET OutputRoot.XMLNSC.users.name = InputRoot.JSON.Data.username;
+		SET OutputRoot.XMLNSC.users.phoneNumber = InputRoot.JSON.Data.phone;
+		SET OutputRoot.XMLNSC.users.ID = InputRoot.JSON.Data.id;
 		
 		RETURN TRUE;
 	END;

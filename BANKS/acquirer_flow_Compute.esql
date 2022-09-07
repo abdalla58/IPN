@@ -7,10 +7,9 @@ CREATE COMPUTE MODULE acquirer_flow_Compute
 		
 		CALL CopyEntireMessage();
 		
-		SET OutputLocalEnvironment.Destination.File.Name = InputRoot.JSON.Data.receiver_ID || '.txt';
+		SET OutputLocalEnvironment.Destination.File.Name = InputRoot.JSON.Data.receiver_id || '.txt';
 		
 		SET Environment.Variables.Data = InputRoot.JSON.Data;
-		SET Environment.Variables.add = false;
 		
 		RETURN TRUE;
 	END;

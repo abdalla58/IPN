@@ -15,14 +15,14 @@
       <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="207,129" computeExpression="esql://routine/#banks_flow_Compute.Main" computeMode="destinationAndMessage">
         <translation xmi:type="utility:ConstantString" string="Compute"/>
       </nodes>
-      <nodes xmi:type="ComIbmFileRead.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="405,141" inputDirectory="C:\Users\Lap Smart\IBM\ACET12\workspace\BANKS\bank users" filenamePattern="" messageDomainProperty="JSON">
-        <translation xmi:type="utility:ConstantString" string="File Read"/>
+      <nodes xmi:type="ComIbmFileRead.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="405,141" filenamePattern="" messageDomainProperty="JSON">
+        <translation xmi:type="utility:ConstantString" string="read database"/>
       </nodes>
-      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="593,73" computeExpression="esql://routine/#banks_flow_Compute1.Main" computeMode="all">
-        <translation xmi:type="utility:ConstantString" string="Compute1"/>
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="575,34" computeExpression="esql://routine/#banks_flow_Compute1.Main" computeMode="all">
+        <translation xmi:type="utility:ConstantString" string="validation"/>
       </nodes>
       <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="592,250" computeExpression="esql://routine/#banks_flow_Compute2.Main" computeMode="all">
-        <translation xmi:type="utility:ConstantString" string="Compute2"/>
+        <translation xmi:type="utility:ConstantString" string="user not found"/>
       </nodes>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_8" targetNode="FCMComposite_1_4" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_1" targetNode="FCMComposite_1_3" sourceNode="FCMComposite_1_4" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
