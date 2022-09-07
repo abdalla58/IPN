@@ -1,1 +1,0 @@
-<users><national_id>10</national_id><username>mohsen</username><channel>wallet</channel><acc_number>201443292877163</acc_number><card_number>8629878834331648</card_number><wallet_number>5713250408726528</wallet_number><phone>12345</phone><acc_balance>1000</acc_balance><card_balance>2000</card_balance><wallet_balance>3000</wallet_balance><msg>validation DONE</msg></users>
