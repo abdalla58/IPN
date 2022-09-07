@@ -3,10 +3,11 @@
 CREATE COMPUTE MODULE acquirer_flow_Compute3
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
-		IF InputRoot.JSON.Data.add =TRUE THEN 
-			SET OutputLocalEnvironment.Destination.File.Name = InputRoot.JSON.Data.receiver_ID || '.txt';
+		
+			SET OutputLocalEnvironment.Destination.File.Name = InputRoot.JSON.Data.receiver_id || '.txt';
 		 	SET Environment.Variables.Data = InputRoot.JSON.Data;
-		END IF;
+			SET Environment.Variables.add = false;
+
 		-- CALL CopyMessageHeaders();
 		-- CALL CopyEntireMessage();
 		RETURN TRUE;

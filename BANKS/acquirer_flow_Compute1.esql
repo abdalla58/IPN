@@ -8,41 +8,30 @@ BEGIN
 		IF InputRoot.JSON.Data.username = Environment.Variables.Data.receiver_name THEN
 			IF Environment.Variables.Data.receiver_channel = 'wallet' THEN
 				IF InputRoot.JSON.Data.wallet_number = Environment.Variables.Data.receiver_wallet_number THEN
-					IF  Environment.Variables.Data.hold = true THEN
-						
 						SET OutputRoot.JSON.Data = Environment.Variables.Data ;
 						SET OutputRoot.JSON.Data.msg = 'validation DONE';
-						SET OutputRoot.JSON.Data.add = true;
-					ELSE 
-						SET OutputRoot.JSON.Data.msg = 'amount not valid';
-					END IF;
 				ELSE
-					SET OutputRoot.JSON.Data.msg = 'wallet number not valid';
+					SET OutputRoot.JSON.Data.msg = 'wallet number of receriver not valid';
 				END IF;	
 			
-			ELSE IF Environment.Variables.Data.sender_channel = 'account' THEN
-				IF InputRoot.JSON.Data.acc_number = Environment.Variables.Data.acc_number THEN
-					IF InputRoot.JSON.Data.acc_balance >= Environment.Variables.Data.amount THEN
+			ELSE IF Environment.Variables.Data.receiver_channel = 'account' THEN
+				IF InputRoot.JSON.Data.acc_number = Environment.Variables.Data.receiver_acc_number THEN
+						SET OutputRoot.JSON.Data = Environment.Variables.Data ;
 						SET OutputRoot.JSON.Data.msg = 'validation DONE';
-						--SET Environment.Varaiables.holding = true;
-					ELSE 
-						SET OutputRoot.JSON.Data.msg = 'amount not valid';
-					END IF;
 				ELSE
-					SET OutputRoot.JSON.Data.msg = 'acc number not valid';
+						SET OutputRoot.JSON.Data.msg = 'acc number of receriver not valid';
 				END IF;
 				
-			ELSE IF Environment.Variables.Data.sender_channel = 'card' THEN
-				IF InputRoot.JSON.Data.card_number = Environment.Variables.Data.card_number THEN
-					IF InputRoot.JSON.Data.card_balance >= Environment.Variables.Data.amount THEN
+			ELSE IF Environment.Variables.Data.receiver_channel = 'card' THEN
+				IF InputRoot.JSON.Data.card_number = Environment.Variables.Data.receiver_card_number THEN
+						SET OutputRoot.JSON.Data = Environment.Variables.Data ;
 						SET OutputRoot.JSON.Data.msg = 'validation DONE';
-						--SET Environment.Varaiables.holding = true;
-					ELSE 
-						SET OutputRoot.JSON.Data.msg = 'amount not valid';
-					END IF;
 				ELSE
-					SET OutputRoot.JSON.Data.msg = 'card number not valid';
+					SET OutputRoot.JSON.Data.msg = 'card number of receriver not valid';
 				END IF;
+				
+			ELSE
+				SET OutputRoot.JSON.Data.msg = 'please enter a valid channel of receiver (account, wallet, card)';
 			END IF;
 			END IF;
 			END IF;
@@ -53,7 +42,6 @@ BEGIN
 		END IF;
 		 
 		 
-		 --SET OutputRoot.JSON.Data.holding = Environment.Varaiables.holding;
 		 
 		 
 		 

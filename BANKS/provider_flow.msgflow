@@ -15,32 +15,32 @@
       <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="208,58" computeExpression="esql://routine/#provider_flow_Compute.Main" computeMode="all">
         <translation xmi:type="utility:ConstantString" string="Compute"/>
       </nodes>
-      <nodes xmi:type="ComIbmFileRead.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="382,164" inputDirectory="C:\Users\Lap Smart\IBM\ACET12\workspace\BANKS\provider" filenamePattern="" messageDomainProperty="JSON">
-        <translation xmi:type="utility:ConstantString" string="File Read"/>
+      <nodes xmi:type="ComIbmFileRead.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="382,164" inputDirectory="C:\Users\Mahmoud Mohsen\IBM\ACET12\workspace\BANKS\provider" filenamePattern="" messageDomainProperty="JSON">
+        <translation xmi:type="utility:ConstantString" string="read database"/>
       </nodes>
       <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="561,50" computeExpression="esql://routine/#provider_flow_Compute1.Main" computeMode="all">
-        <translation xmi:type="utility:ConstantString" string="Compute1"/>
+        <translation xmi:type="utility:ConstantString" string="validation"/>
       </nodes>
       <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="567,251" computeExpression="esql://routine/#provider_flow_Compute2.Main" computeMode="all">
-        <translation xmi:type="utility:ConstantString" string="Compute2"/>
+        <translation xmi:type="utility:ConstantString" string="user not found"/>
       </nodes>
-      <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_7" location="23,143" URLSpecifier="/provider/withdrawBalance" messageDomainProperty="JSON" faultFormat="JSON">
+      <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_7" location="8,147" URLSpecifier="/provider/withdrawBalance" messageDomainProperty="JSON" faultFormat="JSON">
         <translation xmi:type="utility:ConstantString" string="HTTP Input1"/>
       </nodes>
       <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_8" location="106,244" computeExpression="esql://routine/#provider_flow_Compute3.Main" computeMode="all">
         <translation xmi:type="utility:ConstantString" string="Compute3"/>
       </nodes>
-      <nodes xmi:type="ComIbmWSReply.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_9" location="738,349">
+      <nodes xmi:type="ComIbmWSReply.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_9" location="927,369">
         <translation xmi:type="utility:ConstantString" string="HTTP Reply1"/>
       </nodes>
-      <nodes xmi:type="ComIbmFileOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_10" location="524,357" outputDirectory="C:\Users\Lap Smart\IBM\ACET12\workspace\BANKS\provider">
-        <translation xmi:type="utility:ConstantString" string="File Output"/>
+      <nodes xmi:type="ComIbmFileOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_10" location="502,369" outputDirectory="C:\Users\Mahmoud Mohsen\IBM\ACET12\workspace\BANKS\provider" outputMode="archiveAndReplaceWithTimestamp">
+        <translation xmi:type="utility:ConstantString" string="update database"/>
       </nodes>
-      <nodes xmi:type="ComIbmFileRead.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_11" location="168,347" inputDirectory="C:\Users\Lap Smart\IBM\ACET12\workspace\BANKS\provider" messageDomainProperty="JSON">
-        <translation xmi:type="utility:ConstantString" string="File Read1"/>
+      <nodes xmi:type="ComIbmFileRead.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_11" location="168,347" inputDirectory="C:\Users\Mahmoud Mohsen\IBM\ACET12\workspace\BANKS\provider" messageDomainProperty="JSON">
+        <translation xmi:type="utility:ConstantString" string="read database2"/>
       </nodes>
-      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_12" location="336,270" computeExpression="esql://routine/#provider_flow_Compute4.Main">
-        <translation xmi:type="utility:ConstantString" string="Compute4"/>
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_12" location="336,270" computeExpression="esql://routine/#provider_flow_Compute4.Main" computeMode="all">
+        <translation xmi:type="utility:ConstantString" string="withdraw balance"/>
       </nodes>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_2" targetNode="FCMComposite_1_3" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_3" targetNode="FCMComposite_1_4" sourceNode="FCMComposite_1_3" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>

@@ -3,10 +3,12 @@
 CREATE COMPUTE MODULE provider_flow_Compute3
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
-		IF InputRoot.JSON.Data.withdraw =TRUE THEN 
-			SET OutputLocalEnvironment.Destination.File.Name = InputRoot.JSON.Data.sender_ID || '.txt';
+		 
+			SET OutputLocalEnvironment.Destination.File.Name = InputRoot.JSON.Data.sender_id || '.txt';
 		 	SET Environment.Variables.Data = InputRoot.JSON.Data;
-		END IF;
+  			SET Environment.Variables.withdraw = false;
+
+		
 		-- CALL CopyMessageHeaders();
 		-- CALL CopyEntireMessage();
 		RETURN TRUE;

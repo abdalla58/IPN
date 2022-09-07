@@ -11,40 +11,45 @@ CREATE COMPUTE MODULE provider_flow_Compute1
 					IF InputRoot.JSON.Data.wallet_balance >= Environment.Variables.Data.amount THEN
 						SET OutputRoot.JSON.Data = Environment.Variables.Data;
 						SET OutputRoot.JSON.Data.msg = 'validation DONE';
-						SET OutputRoot.JSON.Data.hold = true;
-						SET OutputRoot.JSON.Data.withdraw = true;
+						SET Environment.Variables.hold = true;
 					ELSE 
-						SET OutputRoot.JSON.Data.msg = 'amount not valid';
+						SET OutputRoot.JSON.Data.msg = 'amount of sender not valid';
 					END IF;
 				ELSE
-					SET OutputRoot.JSON.Data.msg = 'wallet number not valid';
+					SET OutputRoot.JSON.Data.msg = 'wallet number of sender not valid';
 				END IF;	
 			
 			ELSE IF Environment.Variables.Data.sender_channel = 'account' THEN
-				IF InputRoot.JSON.Data.acc_number = Environment.Variables.Data.acc_number THEN
+				IF InputRoot.JSON.Data.acc_number = Environment.Variables.Data.sender_acc_number THEN
 					IF InputRoot.JSON.Data.acc_balance >= Environment.Variables.Data.amount THEN
+						SET OutputRoot.JSON.Data = Environment.Variables.Data;
 						SET OutputRoot.JSON.Data.msg = 'validation DONE';
-						SET Environment.Varaiables.holding = true;
+						SET Environment.Variables.hold = true;
 					ELSE 
-						SET OutputRoot.JSON.Data.msg = 'amount not valid';
+						SET OutputRoot.JSON.Data.msg = 'amount of sender not valid';
 					END IF;
 				ELSE
-					SET OutputRoot.JSON.Data.msg = 'acc number not valid';
+					SET OutputRoot.JSON.Data.msg = 'acc number of sender not valid';
 				END IF;
 				
 			ELSE IF Environment.Variables.Data.sender_channel = 'card' THEN
-				IF InputRoot.JSON.Data.card_number = Environment.Variables.Data.card_number THEN
+				IF InputRoot.JSON.Data.card_number = Environment.Variables.Data.sender_card_number THEN
 					IF InputRoot.JSON.Data.card_balance >= Environment.Variables.Data.amount THEN
+						SET OutputRoot.JSON.Data = Environment.Variables.Data;
 						SET OutputRoot.JSON.Data.msg = 'validation DONE';
-						SET Environment.Varaiables.holding = true;
+						SET Environment.Variables.hold = true;
 					ELSE 
-						SET OutputRoot.JSON.Data.msg = 'amount not valid';
+						SET OutputRoot.JSON.Data.msg = 'amount of sender not valid';
 					END IF;
 				ELSE
-					SET OutputRoot.JSON.Data.msg = 'card number not valid';
+					SET OutputRoot.JSON.Data.msg = 'card number of sender not valid';
 				END IF;
+				
+			ELSE
+				SET OutputRoot.JSON.Data.msg = 'please enter a valid channel of sender (account, wallet, card)';
+				
 			END IF;
-			END IF;
+			END IF;	
 			END IF;
 			
 			
@@ -53,7 +58,7 @@ CREATE COMPUTE MODULE provider_flow_Compute1
 		END IF;
 		 
 		 
-		 SET OutputRoot.JSON.Data.holding = Environment.Varaiables.holding;
+		 SET OutputRoot.JSON.Data.hold = Environment.Variables.hold;
 		 
 		 
 		 
