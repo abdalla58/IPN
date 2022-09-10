@@ -3,8 +3,6 @@
 CREATE COMPUTE MODULE banks_flow_Compute2
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
-		-- CALL CopyMessageHeaders();
-		CALL CopyEntireMessage();
 		SET OutputRoot.JSON.Data.msg = 'national id not found';
 		RETURN TRUE;
 	END;

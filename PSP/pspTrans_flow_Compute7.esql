@@ -1,12 +1,12 @@
 
 
-CREATE COMPUTE MODULE user_flow_Compute2
+CREATE COMPUTE MODULE pspTrans_flow_Compute7
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
 		
-			 
-		SET OutputRoot.JSON.Data.msg = 'this id ( ' || Environment.Variables.Data.national_id || ' ) with this channel ( ' || Environment.Variables.channel || ' ) already registered';
-		 
+		SET OutputRoot.JSON.Data.msq = 'connection failed during withdraw, please check the connection and try again';
+		SET OutputRoot.JSON.Data.failedURL = InputLocalEnvironment.WrittenDestination.REST.URL;
+		SET OutputRoot.JSON.Data.code = InputLocalEnvironment.WrittenDestination.REST.StatusCode;
 		
 		RETURN TRUE;
 	END;

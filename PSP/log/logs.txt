@@ -1,0 +1,1 @@
+{"sender":"mohsen","receiver":"mohsen","provider_bank":"CIB","acquirer_bank":"QNB","money":1000,"date_time":"2022-09-10 13:19:15.530316"}

@@ -1,12 +1,10 @@
 
 
-CREATE COMPUTE MODULE user_flow_Compute2
+CREATE COMPUTE MODULE pspTrans_flow_Compute9
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
 		
-			 
-		SET OutputRoot.JSON.Data.msg = 'this id ( ' || Environment.Variables.Data.national_id || ' ) with this channel ( ' || Environment.Variables.channel || ' ) already registered';
-		 
+		SET OutputRoot.JSON.Data.msg = 'there was an error in the acquirer bank connection to add money after the withdrawal operation had been done, the money of the sender has been returned';
 		
 		RETURN TRUE;
 	END;

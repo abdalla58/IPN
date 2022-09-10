@@ -1,14 +1,13 @@
 
 
-CREATE COMPUTE MODULE user_flow_Compute2
+CREATE COMPUTE MODULE pspTrans_flow_Compute8
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
 		
-			 
-		SET OutputRoot.JSON.Data.msg = 'this id ( ' || Environment.Variables.Data.national_id || ' ) with this channel ( ' || Environment.Variables.channel || ' ) already registered';
-		 
+		SET OutputRoot.JSON.Data = Environment.Variables.sender_Data;
 		
 		RETURN TRUE;
+		
 	END;
 
 	CREATE PROCEDURE CopyMessageHeaders() BEGIN
