@@ -1,1 +1,0 @@
-{"national_id":"10","password":"12345","username":"mohse","wallet_number":"5713250408726528","card_number":"8629878834331648","acc_number":"201443292877163","phone":"12345"}

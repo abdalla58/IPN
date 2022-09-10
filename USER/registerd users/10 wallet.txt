@@ -1,1 +1,0 @@
-{"national_id":"10","username":"mohsen","wallet_number":"5713250408726528","phone":"12345","wallet_balance":3000,"msg":"validation DONE"}
