@@ -4,20 +4,9 @@ CREATE COMPUTE MODULE user_flow_Compute
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
 		-- CALL CopyMessageHeaders();
-		
-		SET Environment.Variables.Data = InputRoot.JSON.Data;
-		SET Environment.Variables.password = InputRoot.JSON.Data.password;
-		SET Environment.Variables.channel = InputRoot.JSON.Data.channel;
-		
-		
-		SET OutputLocalEnvironment.Destination.File.Name = InputRoot.JSON.Data.national_id || ' ' ||  Environment.Variables.channel || '.txt';
-		
-
-		
-		
+		 CALL CopyEntireMessage();
 		 
-		 
-		 
+		 SET Environment.Variables.channel = InputRoot.JSON.Data.channel;
 		RETURN TRUE;
 	END;
 

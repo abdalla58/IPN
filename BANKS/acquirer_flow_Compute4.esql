@@ -10,17 +10,19 @@ CREATE COMPUTE MODULE acquirer_flow_Compute4
 			SET OutputRoot.JSON.Data = InputRoot.JSON.Data;
 			SET OutputRoot.JSON.Data.wallet_balance = InputRoot.JSON.Data.wallet_balance + Environment.Variables.Data.amount;
 			SET Environment.Variables.add = true;
+			SET OutputRoot.JSON.Data.add = Environment.Variables.add;
 			
 		ELSE IF  Environment.Variables.Data.receiver_channel = 'card' THEN
 			SET OutputRoot.JSON.Data = InputRoot.JSON.Data;
 			SET OutputRoot.JSON.Data.card_balance = InputRoot.JSON.Data.card_balance + Environment.Variables.Data.amount;
 			SET Environment.Variables.add = true;
+			SET OutputRoot.JSON.Data.add = Environment.Variables.add;
 			
 		ELSE IF  Environment.Variables.Data.receiver_channel = 'account' THEN
 			SET OutputRoot.JSON.Data = InputRoot.JSON.Data;
 			SET OutputRoot.JSON.Data.acc_balance = InputRoot.JSON.Data.acc_balance + Environment.Variables.Data.amount;
 			SET Environment.Variables.add = true;
-			
+			SET OutputRoot.JSON.Data.add = Environment.Variables.add;
 		END IF;
 		END IF;
 		END IF;

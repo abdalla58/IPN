@@ -5,22 +5,19 @@ CREATE COMPUTE MODULE provider_flow_Compute4
 	BEGIN
 		SET OutputLocalEnvironment.Destination.File.Name = InputRoot.JSON.Data.national_id || '.txt';
 		
-		
-		
 		IF Environment.Variables.Data.sender_channel = 'wallet' THEN
 			SET OutputRoot.JSON.Data = InputRoot.JSON.Data;
 			SET OutputRoot.JSON.Data.wallet_balance = InputRoot.JSON.Data.wallet_balance - Environment.Variables.Data.amount;
 			SET Environment.Variables.withdraw = true;
+			SET OutputRoot.JSON.Data.withdraw = Environment.Variables.withdraw;
 			
 		ELSE IF  Environment.Variables.Data.sender_channel = 'card' THEN
 			SET OutputRoot.JSON.Data = InputRoot.JSON.Data;
 			SET OutputRoot.JSON.Data.card_balance = InputRoot.JSON.Data.card_balance - Environment.Variables.Data.amount;
-			SET Environment.Variables.withdraw = true;
 			
 		ELSE IF  Environment.Variables.Data.sender_channel = 'account' THEN
 			SET OutputRoot.JSON.Data = InputRoot.JSON.Data;
 			SET OutputRoot.JSON.Data.acc_balance = InputRoot.JSON.Data.acc_balance - Environment.Variables.Data.amount;
-			SET Environment.Variables.withdraw = true;
 			
 		END IF;
 		END IF;

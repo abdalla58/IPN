@@ -6,10 +6,7 @@ CREATE COMPUTE MODULE pspTrans_flow_Compute5
 		-- CALL CopyMessageHeaders();
 		 --CALL CopyEntireMessage();
 		
-		SET OutputRoot.JSON.Data.msq = 'connection failed with provider bank to get the validation, please check the connection and try again';
-		SET OutputRoot.JSON.Data.failedURL = InputLocalEnvironment.WrittenDestination.REST.URL;
-
-		SET OutputRoot.JSON.Data.code = InputLocalEnvironment.WrittenDestination.REST.StatusCode;
+		SET Environment.Variables.add = InputRoot.JSON.Data.add;
 		
 
 		RETURN TRUE;

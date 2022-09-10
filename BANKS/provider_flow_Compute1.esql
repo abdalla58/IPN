@@ -5,8 +5,6 @@ CREATE COMPUTE MODULE provider_flow_Compute1
 	BEGIN
 		-- CALL CopyMessageHeaders();
 		
-		
-		 
 		IF InputRoot.JSON.Data.username = Environment.Variables.Data.sender_name THEN
 			IF Environment.Variables.Data.sender_channel = 'wallet' THEN
 				IF InputRoot.JSON.Data.wallet_number = Environment.Variables.Data.sender_wallet_number THEN
@@ -62,8 +60,6 @@ CREATE COMPUTE MODULE provider_flow_Compute1
 		 
 		 SET OutputRoot.JSON.Data.hold = Environment.Variables.hold;
 		 
-		 		 
-				SET OutputLocalEnvironment.REST.Response.StatusCode	 = 400;
 		 
 		 
 		 

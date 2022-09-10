@@ -6,8 +6,7 @@ CREATE COMPUTE MODULE pspTrans_flow_Compute3
 		
 		
 		IF InputRoot.JSON.Data.withdraw = true THEN
-			SET OutputRoot.JSON.Data = Environment.Variables.receiver_Data;
-			DELETE FIELD InputLocalEnvironment.WrittenDestination.REST;
+			SET OutputRoot.JSON.Data = Environment.Variables.Data;
 		END IF;
 		-- CALL CopyMessageHeaders();
 		-- CALL CopyEntireMessage();

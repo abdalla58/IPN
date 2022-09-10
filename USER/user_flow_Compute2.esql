@@ -4,9 +4,11 @@ CREATE COMPUTE MODULE user_flow_Compute2
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
 		
-			 
-		SET OutputRoot.JSON.Data.msg = 'this id ( ' || Environment.Variables.Data.national_id || ' ) with this channel ( ' || Environment.Variables.channel || ' ) already registered';
-		 
+		SET OutputLocalEnvironment.Destination.File.Name = InputRoot.JSON.Data.username || '.txt';
+		
+		SET OutputRoot.XMLNSC.users.name = InputRoot.JSON.Data.username;
+		SET OutputRoot.XMLNSC.users.phoneNumber = InputRoot.JSON.Data.phone;
+		SET OutputRoot.XMLNSC.users.ID = InputRoot.JSON.Data.id;
 		
 		RETURN TRUE;
 	END;

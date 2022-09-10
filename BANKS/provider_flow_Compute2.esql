@@ -3,11 +3,8 @@
 CREATE COMPUTE MODULE provider_flow_Compute2
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
-		
-		
+		-- CALL CopyMessageHeaders();
 		SET OutputRoot.JSON.Data.msg = 'national id of sender not found';
-		
-		
 		RETURN TRUE;
 	END;
 
