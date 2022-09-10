@@ -17,8 +17,17 @@ CREATE COMPUTE MODULE user_flow_Compute1
 		END IF;
 		END IF;
 		
-		SET OutputRoot.JSON.Data = InputRoot.JSON.Data;
-
+		SET OutputRoot.JSON.Data.national_id = InputRoot.JSON.Data.national_id;
+		SET OutputRoot.JSON.Data.password = Environment.Variables.Data.password;  
+		
+		SET OutputRoot.JSON.Data.username = InputRoot.JSON.Data.username;
+		SET OutputRoot.JSON.Data.wallet_number = InputRoot.JSON.Data.wallet_number;
+		SET OutputRoot.JSON.Data.card_number = InputRoot.JSON.Data.card_number;
+		SET OutputRoot.JSON.Data.acc_number = InputRoot.JSON.Data.acc_number;
+		SET OutputRoot.JSON.Data.phone = InputRoot.JSON.Data.phone;
+		SET OutputRoot.JSON.Data.wallet_balance = InputRoot.JSON.Data.wallet_balance;
+		SET OutputRoot.JSON.Data.card_balance = InputRoot.JSON.Data.card_balance;
+		SET OutputRoot.JSON.Data.acc_balance = InputRoot.JSON.Data.acc_balance;
 
 		RETURN TRUE;
 	END;

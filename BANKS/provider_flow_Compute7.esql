@@ -1,35 +1,29 @@
 
 
-CREATE COMPUTE MODULE acquirer_flow_Compute4
+CREATE COMPUTE MODULE provider_flow_Compute7
 	CREATE FUNCTION Main() RETURNS BOOLEAN
-	
 	BEGIN
 		SET OutputLocalEnvironment.Destination.File.Name = InputRoot.JSON.Data.national_id || '.txt';
 		
-		IF Environment.Variables.Data.receiver_channel = 'wallet' THEN
+		IF Environment.Variables.Data.sender_channel = 'wallet' THEN
 			SET OutputRoot.JSON.Data = InputRoot.JSON.Data;
 			SET OutputRoot.JSON.Data.wallet_balance = InputRoot.JSON.Data.wallet_balance + Environment.Variables.Data.amount;
-			SET Environment.Variables.add = true;
+			SET Environment.Variables.withdraw = false;
 			
-		ELSE IF  Environment.Variables.Data.receiver_channel = 'card' THEN
+		ELSE IF  Environment.Variables.Data.sender_channel = 'card' THEN
 			SET OutputRoot.JSON.Data = InputRoot.JSON.Data;
 			SET OutputRoot.JSON.Data.card_balance = InputRoot.JSON.Data.card_balance + Environment.Variables.Data.amount;
-			SET Environment.Variables.add = true;
+			SET Environment.Variables.withdraw = false;
 			
-		ELSE IF  Environment.Variables.Data.receiver_channel = 'account' THEN
+		ELSE IF  Environment.Variables.Data.sender_channel = 'account' THEN
 			SET OutputRoot.JSON.Data = InputRoot.JSON.Data;
 			SET OutputRoot.JSON.Data.acc_balance = InputRoot.JSON.Data.acc_balance + Environment.Variables.Data.amount;
-			SET Environment.Variables.add = true;
+			SET Environment.Variables.withdraw = false;
 			
 		END IF;
 		END IF;
 		END IF;
 		
-	
-		
-		
-		-- CALL CopyMessageHeaders();
-		-- CALL CopyEntireMessage();
 		RETURN TRUE;
 	END;
 

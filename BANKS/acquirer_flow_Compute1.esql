@@ -49,8 +49,6 @@ BEGIN
 		 
 		 
 		 
-		 
-		 
 		RETURN TRUE;
 	END;
 

@@ -1,13 +1,15 @@
 
 
-CREATE COMPUTE MODULE user_flow_Compute2
+CREATE COMPUTE MODULE user_flow_Compute3
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
-		
 			 
-		SET OutputRoot.JSON.Data.msg = 'this id ( ' || Environment.Variables.Data.national_id || ' ) with this channel ( ' || Environment.Variables.channel || ' ) already registered';
-		 
+			 
+		SET OutputRoot.JSON.Data = Environment.Variables.Data;
 		
+		
+		 
+		 
 		RETURN TRUE;
 	END;
 

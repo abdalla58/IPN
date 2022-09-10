@@ -319,8 +319,49 @@
           }
         }
       }
+    },
+    
+     "/provider/undowithdraw" : {
+      "summary" : "API to undo the withdraw operation because of failure in auqirer connection",
+      "put" : {
+        "summary" : "undo withdraw operation",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Transaction"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "success",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "failed",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
+  
+  
   
   
   "components" : {
