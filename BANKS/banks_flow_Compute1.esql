@@ -43,7 +43,9 @@ CREATE COMPUTE MODULE banks_flow_Compute1
 				ELSE 
 					--SET OutputRoot.JSON.Data = Environment.Variables.Data;
 					SET OutputRoot.JSON.Data.msg = 'card number not correct';
-				END IF;	
+				END IF;
+			ELSE 
+				SET	OutputRoot.JSON.Data.msg = 'PLEASE, Enter a valid channel(account or wallet or card )';
 			END IF;
 			END IF;
 			END IF;
