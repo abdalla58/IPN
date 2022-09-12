@@ -4,13 +4,40 @@ CREATE COMPUTE MODULE user_flow_Compute
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
 		-- CALL CopyMessageHeaders();
-		
-		SET Environment.Variables.Data = InputRoot.JSON.Data;
+		DECLARE whiteSpace CONSTANT CHARACTER CAST( X'090D0A20' AS CHAR CCSID 1208);
+		--SET Environment.Variables.Data = InputRoot.JSON.Data;
 		--SET Environment.Variables.password = InputRoot.JSON.Data.password;
-		SET Environment.Variables.channel = InputRoot.JSON.Data.channel;
+		IF TRIM(whiteSpace FROM InputRoot.JSON.Data.channel) = '1' THEN 
+			SET Environment.Variables.Data.national_id = InputRoot.JSON.Data.national_id;
+			SET Environment.Variables.Data.username = InputRoot.JSON.Data.username;
+			SET Environment.Variables.Data.password = InputRoot.JSON.Data.password;
+			SET Environment.Variables.Data.wallet_number = InputRoot.JSON.Data.wallet_number;
+			SET Environment.Variables.Data.phone = InputRoot.JSON.Data.phone;
+			SET Environment.Variables.Data.channel = 'wallet';
+			
+		ELSE IF TRIM(whiteSpace FROM InputRoot.JSON.Data.channel) = '2' THEN
+			SET Environment.Variables.Data.national_id = InputRoot.JSON.Data.national_id;
+			SET Environment.Variables.Data.username = InputRoot.JSON.Data.username;
+			SET Environment.Variables.Data.password = InputRoot.JSON.Data.password;
+			SET Environment.Variables.Data.acc_number = InputRoot.JSON.Data.acc_number;
+			SET Environment.Variables.Data.phone = InputRoot.JSON.Data.phone;
+			
+			SET Environment.Variables.Data.channel = 'account';
+			
+		ELSE IF TRIM(whiteSpace FROM InputRoot.JSON.Data.channel) = '3' THEN
+			SET Environment.Variables.Data.national_id = InputRoot.JSON.Data.national_id;
+			SET Environment.Variables.Data.username = InputRoot.JSON.Data.username;
+			SET Environment.Variables.Data.password = InputRoot.JSON.Data.password;
+			SET Environment.Variables.Data.card_number = InputRoot.JSON.Data.card_number;
+			SET Environment.Variables.Data.phone = InputRoot.JSON.Data.phone;
+			
+			SET Environment.Variables.Data.channel = 'card';
+		END IF;
+		END IF;
+		END IF;
 		
 		
-		SET OutputLocalEnvironment.Destination.File.Name = InputRoot.JSON.Data.national_id || ' ' ||  Environment.Variables.channel || '.txt';
+		SET OutputLocalEnvironment.Destination.File.Name =  TRIM(whiteSpace FROM InputRoot.JSON.Data.national_id) || ' ' ||  Environment.Variables.Data.channel || '.txt';
 		
 
 		

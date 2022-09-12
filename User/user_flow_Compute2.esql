@@ -3,9 +3,9 @@
 CREATE COMPUTE MODULE user_flow_Compute2
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
-		
+		DECLARE whiteSpace CONSTANT CHARACTER CAST( X'090D0A20' AS CHAR CCSID 1208);
 			 
-		SET OutputRoot.JSON.Data.msg = 'this id ( ' || Environment.Variables.Data.national_id || ' ) with this channel ( ' || Environment.Variables.channel || ' ) already registered';
+		SET OutputRoot.JSON.Data.msg = 'this id ( ' || TRIM(whiteSpace FROM Environment.Variables.Data.national_id) || ' ) with this channel ( ' || Environment.Variables.Data.channel || ' ) already registered';
 		 
 		
 		RETURN TRUE;
