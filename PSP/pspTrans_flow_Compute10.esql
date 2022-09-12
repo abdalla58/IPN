@@ -4,13 +4,14 @@ CREATE COMPUTE MODULE pspTrans_flow_Compute10
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
 		
-		SET OutputRoot.JSON.Data.sender = Environment.Variables.sender_Data.sender_name;
-		SET OutputRoot.JSON.Data.receiver = Environment.Variables.receiver_Data.receiver_name;
-		SET OutputRoot.JSON.Data.provider_bank = Environment.Variables.provider_bank;
-		SET OutputRoot.JSON.Data.acquirer_bank = Environment.Variables.acquirer_bank;
-		SET OutputRoot.JSON.Data.money = Environment.Variables.sender_Data.amount;
-		SET OutputRoot.JSON.Data.date_time = Environment.Variables.sender_Data.date_time;
-		
+		SET OutputRoot.JSON.Data.sender = Environment.Variables.Data.sender_id;
+		SET OutputRoot.JSON.Data.receiver = Environment.Variables.Data.receiver_id;
+		SET OutputRoot.JSON.Data.provider_bank = Environment.Variables.Data.provider_bank;
+		SET OutputRoot.JSON.Data.acquirer_bank = Environment.Variables.Data.acquirer_bank;
+		SET OutputRoot.JSON.Data.sender_channel = Environment.Variables.Data.sender_channel;
+		SET OutputRoot.JSON.Data.receiver_channel = Environment.Variables.Data.receiver_channel;
+		SET OutputRoot.JSON.Data.money = Environment.Variables.Data.amount;
+		SET OutputRoot.JSON.Data.date_time = Environment.Variables.Data.date_time;
 		SET OutputLocalEnvironment.Destination.File.Name = 'logs.txt';
 		--SET OutputLocalEnvironment.Destination.File.Name = Environment.Variables.sender_Data.sender_name || ' to ' || Environment.Variables.receiver_Data.receiver_name || ' at ' || Environment.Variables.sender_Data.date_time || '.txt';
 		

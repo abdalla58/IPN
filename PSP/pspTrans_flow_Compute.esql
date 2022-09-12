@@ -5,32 +5,69 @@ CREATE COMPUTE MODULE pspTrans_flow_Compute
 	BEGIN
 --		CALL CopyMessageHeaders();
 --		CALL CopyEntireMessage();
+		DECLARE whiteSpace CONSTANT CHARACTER CAST( X'090D0A20' AS CHAR CCSID 1208);
+		SET Environment.Variables.Data = InputRoot.JSON.Data;
+		--SET Environment.Variables.password = InputRoot.JSON.Data.password;
 		
-		SET Environment.Variables.sender_Data.sender_id = InputRoot.JSON.Data.sender_id;
-		SET Environment.Variables.sender_Data.sender_name = InputRoot.JSON.Data.sender_name;
-		SET Environment.Variables.sender_Data.amount = InputRoot.JSON.Data.amount;
-		SET Environment.Variables.sender_Data.sender_channel = InputRoot.JSON.Data.sender_channel;
-		SET Environment.Variables.sender_Data.date_time = CURRENT_TIMESTAMP;
-		SET Environment.Variables.sender_Data.sender_acc_number = InputRoot.JSON.Data.sender_acc_number;
-		SET Environment.Variables.sender_Data.sender_card_number = InputRoot.JSON.Data.sender_card_number;
-		SET Environment.Variables.sender_Data.sender_wallet_number = InputRoot.JSON.Data.sender_wallet_number;
+		IF TRIM(whiteSpace FROM InputRoot.JSON.Data.sender_channel) = '1' THEN 
+			SET OutputRoot.JSON.Data = InputRoot.JSON.Data;
+			SET OutputRoot.JSON.Data.sender_channel='wallet';
+			SET Environment.Variables.Data.sender_channel = 'wallet';
+			SET Environment.Variables.Data.date_time = CURRENT_TIMESTAMP;
+		ELSE IF TRIM(whiteSpace FROM InputRoot.JSON.Data.sender_channel) = '2' THEN
+			SET OutputRoot.JSON.Data = InputRoot.JSON.Data;
+			SET OutputRoot.JSON.Data.sender_channel='account';
+			SET Environment.Variables.Data.sender_channel = 'account';
+			SET Environment.Variables.Data.date_time = CURRENT_TIMESTAMP;
+		ELSE IF TRIM(whiteSpace FROM InputRoot.JSON.Data.sender_channel) = '3' THEN
+			SET OutputRoot.JSON.Data = InputRoot.JSON.Data;
+			SET OutputRoot.JSON.Data.sender_channel='card';
+			SET Environment.Variables.Data.sender_channel = 'card';
+			SET Environment.Variables.Data.date_time = CURRENT_TIMESTAMP;
+		END IF;
+		END IF;
+		END IF;
+		IF TRIM(whiteSpace FROM InputRoot.JSON.Data.receiver_channel) = '1' THEN 
+			SET OutputRoot.JSON.Data.receiver_channel='wallet';
+			SET Environment.Variables.Data.receiver_channel = 'wallet';
+			SET Environment.Variables.Data.date_time = CURRENT_TIMESTAMP;
+		ELSE IF TRIM(whiteSpace FROM InputRoot.JSON.Data.receiver_channel) = '2' THEN
+			SET OutputRoot.JSON.Data.receiver_channel='account';
+			SET Environment.Variables.Data.receiver_channel = 'account';
+			SET Environment.Variables.Data.date_time = CURRENT_TIMESTAMP;
+		ELSE IF TRIM(whiteSpace FROM InputRoot.JSON.Data.receiver_channel) = '3' THEN
+			SET OutputRoot.JSON.Data.receiver_channel='card';
+			SET Environment.Variables.Data.receiver_channel = 'card';
+			SET Environment.Variables.Data.date_time = CURRENT_TIMESTAMP;
+		END IF;
+		END IF;
+		END IF;
 		
-		SET Environment.Variables.receiver_Data.receiver_id = InputRoot.JSON.Data.receiver_id;
-		SET Environment.Variables.receiver_Data.receiver_name = InputRoot.JSON.Data.receiver_name;
-		SET Environment.Variables.receiver_Data.amount = InputRoot.JSON.Data.amount;
-		SET Environment.Variables.receiver_Data.receiver_channel = InputRoot.JSON.Data.receiver_channel;
-		SET Environment.Variables.receiver_Data.date_time = CURRENT_TIMESTAMP;
-		SET Environment.Variables.receiver_Data.receiver_acc_number = InputRoot.JSON.Data.receiver_acc_number;
-		SET Environment.Variables.receiver_Data.receiver_card_number = InputRoot.JSON.Data.receiver_card_number;
-		SET Environment.Variables.receiver_Data.receiver_wallet_number = InputRoot.JSON.Data.receiver_wallet_number;
-		
-		SET OutputRoot.JSON.Data = Environment.Variables.sender_Data;
-		
-		SET Environment.Variables.provider_bank = InputRoot.JSON.Data.provider_bank;
-		SET Environment.Variables.acquirer_bank = InputRoot.JSON.Data.acquirer_bank;
+----		SET Environment.Variables.sender_Data.sender_id = InputRoot.JSON.Data.sender_id;
+----		SET Environment.Variables.sender_Data.sender_name = InputRoot.JSON.Data.sender_name;
+----		SET Environment.Variables.sender_Data.amount = InputRoot.JSON.Data.amount;
+----		SET Environment.Variables.sender_Data.sender_channel = InputRoot.JSON.Data.sender_channel;
+----		SET Environment.Variables.sender_Data.date_time = CURRENT_TIMESTAMP;
+----		SET Environment.Variables.sender_Data.sender_acc_number = InputRoot.JSON.Data.sender_acc_number;
+----		SET Environment.Variables.sender_Data.sender_card_number = InputRoot.JSON.Data.sender_card_number;
+----		SET Environment.Variables.sender_Data.sender_wallet_number = InputRoot.JSON.Data.sender_wallet_number;
+----		
+----		SET Environment.Variables.receiver_Data.receiver_id = InputRoot.JSON.Data.receiver_id;
+----		SET Environment.Variables.receiver_Data.receiver_name = InputRoot.JSON.Data.receiver_name;
+----		SET Environment.Variables.receiver_Data.amount = InputRoot.JSON.Data.amount;
+----		SET Environment.Variables.receiver_Data.receiver_channel = InputRoot.JSON.Data.receiver_channel;
+----		SET Environment.Variables.receiver_Data.date_time = CURRENT_TIMESTAMP;
+----		SET Environment.Variables.receiver_Data.receiver_acc_number = InputRoot.JSON.Data.receiver_acc_number;
+----		SET Environment.Variables.receiver_Data.receiver_card_number = InputRoot.JSON.Data.receiver_card_number;
+----		SET Environment.Variables.receiver_Data.receiver_wallet_number = InputRoot.JSON.Data.receiver_wallet_number;
+----		
+----		SET OutputRoot.JSON.Data = Environment.Variables.sender_Data;
+----		
+----		SET Environment.Variables.provider_bank = InputRoot.JSON.Data.provider_bank;
+----		SET Environment.Variables.acquirer_bank = InputRoot.JSON.Data.acquirer_bank;
 --		
 
---		SET OutputRoot.JSON.Data = InputRoot.JSON.Data;
+		--SET OutputRoot.JSON.Data = InputRoot.JSON.Data;
 		
 		RETURN TRUE;
 	END;

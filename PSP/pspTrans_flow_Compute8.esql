@@ -4,7 +4,7 @@ CREATE COMPUTE MODULE pspTrans_flow_Compute8
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
 		
-		SET OutputRoot.JSON.Data = Environment.Variables.sender_Data;
+		SET OutputRoot.JSON.Data = Environment.Variables.Data;
 		
 		RETURN TRUE;
 		
