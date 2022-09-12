@@ -6,7 +6,7 @@ CREATE COMPUTE MODULE cbe_flow_Compute1
 		
 		SET OutputRoot.JSON = InputRoot.JSON;
 		
-		SET OutputLocalEnvironment.Destination.File.Directory = 'C:\Users\Lap Smart\IBM\ACET12\workspace\CBE\log';
+		
 		DECLARE log_date CHAR;
 		SET log_date  = CURRENT_DATE;
 		SET OutputLocalEnvironment.Destination.File.Name = 'logs at ' || log_date || '.txt';
