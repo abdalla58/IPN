@@ -3,7 +3,8 @@
 CREATE COMPUTE MODULE provider_flow_Compute4
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
-		SET OutputLocalEnvironment.Destination.File.Name = InputRoot.JSON.Data.national_id || '.txt';
+		DECLARE whiteSpace CONSTANT CHARACTER CAST( X'090D0A20' AS CHAR CCSID 1208);
+		SET OutputLocalEnvironment.Destination.File.Name = TRIM(whiteSpace FROM InputRoot.JSON.Data.national_id) || '.txt';
 		
 		
 		

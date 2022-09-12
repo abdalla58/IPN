@@ -3,8 +3,9 @@
 CREATE COMPUTE MODULE acquirer_flow_Compute3
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
+		DECLARE whiteSpace CONSTANT CHARACTER CAST( X'090D0A20' AS CHAR CCSID 1208);
 		
-			SET OutputLocalEnvironment.Destination.File.Name = InputRoot.JSON.Data.receiver_id || '.txt';
+			SET OutputLocalEnvironment.Destination.File.Name = TRIM(whiteSpace FROM InputRoot.JSON.Data.receiver_id) || '.txt';
 		 	SET Environment.Variables.Data = InputRoot.JSON.Data;
 			SET Environment.Variables.add = false;
 

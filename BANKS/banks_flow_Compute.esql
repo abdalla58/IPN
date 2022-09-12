@@ -5,9 +5,9 @@ CREATE COMPUTE MODULE banks_flow_Compute
 	BEGIN
 		-- CALL CopyMessageHeaders();
 		 CALL CopyEntireMessage();
+		 DECLARE whiteSpace CONSTANT CHARACTER CAST( X'090D0A20' AS CHAR CCSID 1208);
 		 
-		 
-		 SET OutputLocalEnvironment.Destination.File.Name = InputRoot.JSON.Data.national_id || '.txt';
+		 SET OutputLocalEnvironment.Destination.File.Name = Trim(whiteSpace FROM InputRoot.JSON.Data.national_id) || '.txt';
 
 		 SET Environment.Variables.Data = InputRoot.JSON.Data;
 

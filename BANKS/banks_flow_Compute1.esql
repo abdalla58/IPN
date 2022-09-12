@@ -4,10 +4,12 @@ CREATE COMPUTE MODULE banks_flow_Compute1
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
 		-- CALL CopyMessageHeaders();
+		DECLARE whiteSpace CONSTANT CHARACTER CAST( X'090D0A20' AS CHAR CCSID 1208);
 		
-		IF InputRoot.JSON.Data.username = Environment.Variables.Data.username THEN
-			IF Environment.Variables.Data.channel = 'wallet' THEN
-				IF InputRoot.JSON.Data.wallet_number = Environment.Variables.Data.wallet_number THEN
+		
+		IF InputRoot.JSON.Data.username = LOWER(TRIM(whiteSpace FROM Environment.Variables.Data.username)) THEN
+			IF LOWER(TRIM(whiteSpace FROM Environment.Variables.Data.channel)) = 'wallet' THEN
+				IF InputRoot.JSON.Data.wallet_number = TRIM(whiteSpace FROM Environment.Variables.Data.wallet_number) THEN
 					SET OutputRoot.JSON.Data.national_id = InputRoot.JSON.Data.national_id;
 					SET OutputRoot.JSON.Data.username = InputRoot.JSON.Data.username;
 					SET OutputRoot.JSON.Data.wallet_number = InputRoot.JSON.Data.wallet_number;
@@ -19,8 +21,8 @@ CREATE COMPUTE MODULE banks_flow_Compute1
 					SET OutputRoot.JSON.Data.msg = 'wallet number not correct';
 				END IF;	
 			
-			ELSE IF Environment.Variables.Data.channel = 'account' THEN
-				IF InputRoot.JSON.Data.acc_number = Environment.Variables.Data.acc_number THEN
+			ELSE IF LOWER(TRIM(whiteSpace FROM Environment.Variables.Data.channel)) = 'account' THEN
+				IF InputRoot.JSON.Data.acc_number = TRIM(whiteSpace FROM Environment.Variables.Data.acc_number) THEN
 					SET OutputRoot.JSON.Data.national_id = InputRoot.JSON.Data.national_id;
 					SET OutputRoot.JSON.Data.username = InputRoot.JSON.Data.username;
 					SET OutputRoot.JSON.Data.acc_number = InputRoot.JSON.Data.acc_number;
@@ -32,8 +34,8 @@ CREATE COMPUTE MODULE banks_flow_Compute1
 					SET OutputRoot.JSON.Data.msg = 'acc number not correct';
 				END IF;	
 			
-			ELSE IF Environment.Variables.Data.channel = 'card' THEN
-				IF InputRoot.JSON.Data.card_number = Environment.Variables.Data.card_number THEN
+			ELSE IF LOWER(TRIM(whiteSpace FROM Environment.Variables.Data.channel)) = 'card' THEN
+				IF InputRoot.JSON.Data.card_number = TRIM(whiteSpace FROM Environment.Variables.Data.card_number) THEN
 					SET OutputRoot.JSON.Data.national_id = InputRoot.JSON.Data.national_id;
 					SET OutputRoot.JSON.Data.username = InputRoot.JSON.Data.username;
 					SET OutputRoot.JSON.Data.card_number = InputRoot.JSON.Data.card_number;

@@ -1,0 +1,1 @@
+{"national_id":"30123456789102","username":"zwedy","acc_number":"4016286759085","card_number":"4548147056745144","wallet_number":"01150155922","phone":"01150155922","acc_balance":92000,"card_balance":21000,"wallet_balance":33000}
