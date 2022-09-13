@@ -3,35 +3,94 @@
 CREATE COMPUTE MODULE user_flow_Compute
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
-		-- CALL CopyMessageHeaders();
 		DECLARE whiteSpace CONSTANT CHARACTER CAST( X'090D0A20' AS CHAR CCSID 1208);
-		--SET Environment.Variables.Data = InputRoot.JSON.Data;
-		--SET Environment.Variables.password = InputRoot.JSON.Data.password;
+		
+			
+		IF LENGTH(Trim(whiteSpace FROM InputRoot.JSON.Data.national_id)) <> 14 THEN
+			SET OutputRoot.JSON.Data.msg = 'enter a valid national id with 14 digits';
+			PROPAGATE TO TERMINAL 1;
+			RETURN FALSE;
+		ELSE IF NOT (STARTSWITH(Trim(whiteSpace FROM InputRoot.JSON.Data.national_id), '2') OR
+					STARTSWITH(Trim(whiteSpace FROM InputRoot.JSON.Data.national_id), '3')) THEN
+			SET OutputRoot.JSON.Data.msg = 'national id must start with 2 or 3';
+			PROPAGATE TO TERMINAL 1;
+			RETURN FALSE;
+		
+		END IF;
+		END IF;
+		
+		IF LENGTH(InputRoot.JSON.Data.password) < 6  THEN
+			SET OutputRoot.JSON.Data.msg = 'please enter a password at least 6 digits';
+			PROPAGATE TO TERMINAL 1;
+			RETURN FALSE;
+		END IF;
+		
+		IF LENGTH(TRIM(whiteSpace FROM InputRoot.JSON.Data.phone)) <> 11 THEN
+			SET OutputRoot.JSON.Data.msg = 'please enter a valid phone with 11 digits';
+			PROPAGATE TO TERMINAL 1;
+			RETURN FALSE;
+		ELSE IF NOT (STARTSWITH(Trim(whiteSpace FROM InputRoot.JSON.Data.phone), '010') OR 
+					STARTSWITH(Trim(whiteSpace FROM InputRoot.JSON.Data.phone), '011') OR
+					STARTSWITH(Trim(whiteSpace FROM InputRoot.JSON.Data.phone), '012') OR
+					STARTSWITH(Trim(whiteSpace FROM InputRoot.JSON.Data.phone), '015'))THEN
+			SET OutputRoot.JSON.Data.msg = 'phone number must start with (010 or 011 or 012 or 015)';
+			PROPAGATE TO TERMINAL 1;
+			RETURN FALSE;
+		END IF;
+		END IF;
+		
+		
+
+			
+		SET Environment.Variables.Data.national_id = TRIM(whiteSpace FROM InputRoot.JSON.Data.national_id);
+		SET Environment.Variables.Data.username = LOWER(TRIM(whiteSpace FROM InputRoot.JSON.Data.username));
+		SET Environment.Variables.Data.password = InputRoot.JSON.Data.password;
+		SET Environment.Variables.Data.phone = TRIM(whiteSpace FROM InputRoot.JSON.Data.phone);
+		
+	
+			
 		IF TRIM(whiteSpace FROM InputRoot.JSON.Data.channel) = '1' THEN 
-			SET Environment.Variables.Data.national_id = InputRoot.JSON.Data.national_id;
-			SET Environment.Variables.Data.username = InputRoot.JSON.Data.username;
-			SET Environment.Variables.Data.password = InputRoot.JSON.Data.password;
-			SET Environment.Variables.Data.wallet_number = InputRoot.JSON.Data.wallet_number;
-			SET Environment.Variables.Data.phone = InputRoot.JSON.Data.phone;
-			SET Environment.Variables.Data.channel = 'wallet';
+			IF LENGTH(TRIM(whiteSpace FROM InputRoot.JSON.Data.wallet_number)) <> 11 THEN
+				SET OutputRoot.JSON.Data.msg = 'please enter a valid wallet number with 11 digits';
+				PROPAGATE TO TERMINAL 1;
+				RETURN FALSE;
+			ELSE IF NOT (STARTSWITH(Trim(whiteSpace FROM InputRoot.JSON.Data.wallet_number), '010') OR 
+						STARTSWITH(Trim(whiteSpace FROM InputRoot.JSON.Data.wallet_number), '011') OR
+						STARTSWITH(Trim(whiteSpace FROM InputRoot.JSON.Data.wallet_number), '012') OR
+						STARTSWITH(Trim(whiteSpace FROM InputRoot.JSON.Data.wallet_number), '015'))THEN
+				SET OutputRoot.JSON.Data.msg = 'wallet number must start with (010 or 011 or 012 or 015)';
+				PROPAGATE TO TERMINAL 1;
+				RETURN FALSE;
+			ELSE 
+				SET Environment.Variables.Data.wallet_number = TRIM(whiteSpace FROM InputRoot.JSON.Data.wallet_number);
+				SET Environment.Variables.Data.channel = 'wallet';
+			END IF;
+			END IF;
 			
 		ELSE IF TRIM(whiteSpace FROM InputRoot.JSON.Data.channel) = '2' THEN
-			SET Environment.Variables.Data.national_id = InputRoot.JSON.Data.national_id;
-			SET Environment.Variables.Data.username = InputRoot.JSON.Data.username;
-			SET Environment.Variables.Data.password = InputRoot.JSON.Data.password;
-			SET Environment.Variables.Data.acc_number = InputRoot.JSON.Data.acc_number;
-			SET Environment.Variables.Data.phone = InputRoot.JSON.Data.phone;
-			
-			SET Environment.Variables.Data.channel = 'account';
+			IF LENGTH(TRIM(whiteSpace FROM InputRoot.JSON.Data.acc_number)) <> 16 THEN
+				SET OutputRoot.JSON.Data.msg = 'please enter a valid account number with 16 digits';
+				PROPAGATE TO TERMINAL 1;
+				RETURN FALSE;
+			ELSE 
+				SET Environment.Variables.Data.acc_number = TRIM(whiteSpace FROM InputRoot.JSON.Data.acc_number);
+				SET Environment.Variables.Data.channel = 'account';
+			END IF;
 			
 		ELSE IF TRIM(whiteSpace FROM InputRoot.JSON.Data.channel) = '3' THEN
-			SET Environment.Variables.Data.national_id = InputRoot.JSON.Data.national_id;
-			SET Environment.Variables.Data.username = InputRoot.JSON.Data.username;
-			SET Environment.Variables.Data.password = InputRoot.JSON.Data.password;
-			SET Environment.Variables.Data.card_number = InputRoot.JSON.Data.card_number;
-			SET Environment.Variables.Data.phone = InputRoot.JSON.Data.phone;
+			IF LENGTH(TRIM(whiteSpace FROM InputRoot.JSON.Data.card_number)) <> 16 THEN
+				SET OutputRoot.JSON.Data.msg = 'please enter a valid card number with 16 digits';
+				PROPAGATE TO TERMINAL 1;
+				RETURN FALSE;
+			ELSE
+				SET Environment.Variables.Data.card_number = TRIM(whiteSpace FROM InputRoot.JSON.Data.card_number);
+				SET Environment.Variables.Data.channel = 'card';
+			END IF;
 			
-			SET Environment.Variables.Data.channel = 'card';
+		ELSE 
+			SET OutputRoot.JSON.Data.msg = 'please enter a valid channel (1 for wallet - 2 for account - 3 for card)';
+			PROPAGATE TO TERMINAL 1;
+			RETURN FALSE;
 		END IF;
 		END IF;
 		END IF;
