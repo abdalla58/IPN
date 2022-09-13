@@ -1,0 +1,11 @@
+{
+  "national_id": "3",
+  "username": "ahmed saber",
+  "acc_number": "201443292877163",
+  "card_number": "8629878834331648",
+  "wallet_number": "5713250408726528",
+  "phone": "12345",
+  "acc_balance": 1000,
+  "card_balance": 2000,
+  "wallet_balance": 3000
+}

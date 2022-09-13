@@ -7,47 +7,44 @@ CREATE COMPUTE MODULE provider_flow_Compute1
 		DECLARE whiteSpace CONSTANT CHARACTER CAST( X'090D0A20' AS CHAR CCSID 1208);
 		
 		 
-			IF TRIM(whiteSpace FROM Environment.Variables.Data.sender_channel) = 'wallet' THEN
-				IF InputRoot.JSON.Data.wallet_number =TRIM(whiteSpace FROM Environment.Variables.Data.sender_wallet_number) THEN
+			IF Environment.Variables.Data.sender_channel = 'wallet' THEN
+				IF InputRoot.JSON.Data.wallet_number = Environment.Variables.Data.sender_wallet_number THEN
 					IF InputRoot.JSON.Data.wallet_balance >= Environment.Variables.Data.amount THEN
 						SET OutputRoot.JSON.Data = Environment.Variables.Data;
 						SET OutputRoot.JSON.Data.msg = 'validation DONE';
 						SET Environment.Variables.hold = true;
 					ELSE 
-						SET OutputRoot.JSON.Data.msg = 'amount of sender not valid';
+						SET OutputRoot.JSON.Data.msg = 'the sender has not enough money to send';
 					END IF;
 				ELSE
 					SET OutputRoot.JSON.Data.msg = 'wallet number of sender not valid';
 				END IF;	
 			
-			ELSE IF TRIM(whiteSpace FROM Environment.Variables.Data.sender_channel)  = 'account' THEN
-				IF InputRoot.JSON.Data.acc_number = TRIM(whiteSpace FROM Environment.Variables.Data.sender_acc_number) THEN
+			ELSE IF Environment.Variables.Data.sender_channel  = 'account' THEN
+				IF InputRoot.JSON.Data.acc_number = Environment.Variables.Data.sender_acc_number THEN
 					IF InputRoot.JSON.Data.acc_balance >= Environment.Variables.Data.amount THEN
 						SET OutputRoot.JSON.Data = Environment.Variables.Data;
 						SET OutputRoot.JSON.Data.msg = 'validation DONE';
 						SET Environment.Variables.hold = true;
 					ELSE 
-						SET OutputRoot.JSON.Data.msg = 'amount of sender not valid';
+						SET OutputRoot.JSON.Data.msg = 'the sender has not enough money to send';
 					END IF;
 				ELSE
 					SET OutputRoot.JSON.Data.msg = 'acc number of sender not valid';
 				END IF;
 				
-			ELSE IF TRIM(whiteSpace FROM Environment.Variables.Data.sender_channel) = 'card' THEN
+			ELSE IF Environment.Variables.Data.sender_channel = 'card' THEN
 				IF InputRoot.JSON.Data.card_number = TRIM(whiteSpace FROM Environment.Variables.Data.sender_card_number) THEN
 					IF InputRoot.JSON.Data.card_balance >= Environment.Variables.Data.amount THEN
 						SET OutputRoot.JSON.Data = Environment.Variables.Data;
 						SET OutputRoot.JSON.Data.msg = 'validation DONE';
 						SET Environment.Variables.hold = true;
 					ELSE 
-						SET OutputRoot.JSON.Data.msg = 'amount of sender not valid';
+						SET OutputRoot.JSON.Data.msg = 'the sender has not enough money to send';
 					END IF;
 				ELSE
 					SET OutputRoot.JSON.Data.msg = 'card number of sender not valid';
 				END IF;
-				
-			ELSE
-				SET OutputRoot.JSON.Data.msg = 'please enter a valid channel of sender (1 or 2 or  3)';
 				
 			END IF;
 			END IF;	
@@ -59,7 +56,6 @@ CREATE COMPUTE MODULE provider_flow_Compute1
 		 
 		 SET OutputRoot.JSON.Data.hold = Environment.Variables.hold;
 		 
-		 SET OutputLocalEnvironment.REST.Response.StatusCode	 = 400;
 		 
 		 
 		 

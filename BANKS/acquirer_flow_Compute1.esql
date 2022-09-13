@@ -6,45 +6,35 @@ BEGIN
 		-- CALL CopyMessageHeaders();
 		DECLARE whiteSpace CONSTANT CHARACTER CAST( X'090D0A20' AS CHAR CCSID 1208);
 		
-			IF TRIM(whiteSpace FROM Environment.Variables.Data.receiver_channel) = 'wallet' THEN
-				IF InputRoot.JSON.Data.wallet_number = TRIM(whiteSpace FROM Environment.Variables.Data.receiver_wallet_number) THEN
+			IF Environment.Variables.Data.receiver_channel = 'wallet' THEN
+				IF InputRoot.JSON.Data.wallet_number = Environment.Variables.Data.receiver_wallet_number THEN
 						SET OutputRoot.JSON.Data = Environment.Variables.Data ;
 						SET OutputRoot.JSON.Data.msg = 'validation DONE';
 				ELSE
-					SET OutputRoot.JSON.Data.msg = 'wallet number of receriver not valid';
+					SET OutputRoot.JSON.Data.msg = 'wallet number of receiver not valid';
 				END IF;	
 			
 			ELSE IF Environment.Variables.Data.receiver_channel = 'account' THEN
-				IF InputRoot.JSON.Data.acc_number = TRIM(whiteSpace FROM Environment.Variables.Data.receiver_acc_number) THEN
+				IF InputRoot.JSON.Data.acc_number = Environment.Variables.Data.receiver_acc_number THEN
 						SET OutputRoot.JSON.Data = Environment.Variables.Data ;
 						SET OutputRoot.JSON.Data.msg = 'validation DONE';
 				ELSE
-						SET OutputRoot.JSON.Data.msg = 'acc number of receriver not valid';
+						SET OutputRoot.JSON.Data.msg = 'acc number of receiver not valid';
 				END IF;
 				
 			ELSE IF Environment.Variables.Data.receiver_channel = 'card' THEN
-				IF InputRoot.JSON.Data.card_number = TRIM(whiteSpace FROM Environment.Variables.Data.receiver_card_number) THEN
+				IF InputRoot.JSON.Data.card_number = Environment.Variables.Data.receiver_card_number THEN
 						SET OutputRoot.JSON.Data = Environment.Variables.Data ;
 						SET OutputRoot.JSON.Data.msg = 'validation DONE';
 				ELSE
-					SET OutputRoot.JSON.Data.msg = 'card number of receriver not valid';
+					SET OutputRoot.JSON.Data.msg = 'card number of receiver not valid';
 				END IF;
-				
-			ELSE
-				SET OutputRoot.JSON.Data.msg = 'please enter a valid channel of receiver (1 or 2 or 3)';
+
 			END IF;
 			END IF;
 			END IF;
 			
-		
-		 
-		 
-		 
-		 
-		 
-		 
-		 
-		 
+ 
 		 
 		RETURN TRUE;
 	END;
