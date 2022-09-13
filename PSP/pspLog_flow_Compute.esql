@@ -1,19 +1,11 @@
 
 
-CREATE COMPUTE MODULE pspTrans_flow_Compute4
+CREATE COMPUTE MODULE pspLog_flow_Compute
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
-		-- CALL CopyMessageHeaders();
 		
-		IF InputRoot.JSON.Data.add = true THEN
-			SET OutputRoot.JSON.Data.msg = 'Transaction success, please check your balance';
-		END IF;		 
-		 
-		
-		
-		
-		
-		
+
+		SET OutputRoot.JSON.Data.msg = 'there is no log to send';
 		RETURN TRUE;
 	END;
 
