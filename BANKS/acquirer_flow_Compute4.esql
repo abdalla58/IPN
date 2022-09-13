@@ -6,7 +6,7 @@ CREATE COMPUTE MODULE acquirer_flow_Compute4
 	BEGIN
 		DECLARE whiteSpace CONSTANT CHARACTER CAST( X'090D0A20' AS CHAR CCSID 1208);
 		
-		SET OutputLocalEnvironment.Destination.File.Name = TRIM(whiteSpace FROM InputRoot.JSON.Data.national_id) || '.txt';
+		SET OutputLocalEnvironment.Destination.File.Name = InputRoot.JSON.Data.national_id || '.txt';
 		
 		IF Environment.Variables.Data.receiver_channel = 'wallet' THEN
 			SET OutputRoot.JSON.Data = InputRoot.JSON.Data;

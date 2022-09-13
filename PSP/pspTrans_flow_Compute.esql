@@ -3,45 +3,143 @@
 CREATE COMPUTE MODULE pspTrans_flow_Compute
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
---		CALL CopyMessageHeaders();
---		CALL CopyEntireMessage();
+
 		DECLARE whiteSpace CONSTANT CHARACTER CAST( X'090D0A20' AS CHAR CCSID 1208);
-		SET Environment.Variables.Data = InputRoot.JSON.Data;
-		--SET Environment.Variables.password = InputRoot.JSON.Data.password;
+		SET Environment.Variables.Data.sender_id = TRIM(whiteSpace FROM InputRoot.JSON.Data.sender_id);
+		SET Environment.Variables.Data.receiver_id = TRIM(whiteSpace FROM InputRoot.JSON.Data.receiver_id);
+		SET Environment.Variables.Data.provider_bank = UPPER(TRIM(whiteSpace FROM InputRoot.JSON.Data.provider_bank));
+		SET Environment.Variables.Data.acquirer_bank = UPPER(TRIM(whiteSpace FROM InputRoot.JSON.Data.acquirer_bank));
+		SET Environment.Variables.Data.amount = InputRoot.JSON.Data.amount;
+		
+		
+		
+		
+		IF LENGTH(Trim(whiteSpace FROM InputRoot.JSON.Data.sender_id)) <> 14 THEN
+			SET OutputRoot.JSON.Data.msg = 'enter a valid sender national id with 14 digits';
+			PROPAGATE TO TERMINAL 1;
+			RETURN FALSE;
+		ELSE IF NOT (STARTSWITH(Trim(whiteSpace FROM InputRoot.JSON.Data.sender_id), '2') OR
+					STARTSWITH(Trim(whiteSpace FROM InputRoot.JSON.Data.sender_id), '3')) THEN
+			SET OutputRoot.JSON.Data.msg = 'national id of sender must start with 2 or 3';
+			PROPAGATE TO TERMINAL 1;
+			RETURN FALSE;
+		END IF;
+		END IF;
+		
+		IF LENGTH(Trim(whiteSpace FROM InputRoot.JSON.Data.receiver_id)) <> 14 THEN
+			SET OutputRoot.JSON.Data.msg = 'enter a valid receiver national id with 14 digits';
+			PROPAGATE TO TERMINAL 1;
+			RETURN FALSE;
+		ELSE IF NOT (STARTSWITH(Trim(whiteSpace FROM InputRoot.JSON.Data.receiver_id), '2') OR
+					STARTSWITH(Trim(whiteSpace FROM InputRoot.JSON.Data.receiver_id), '3')) THEN
+			SET OutputRoot.JSON.Data.msg = 'national id of receiver must start with 2 or 3';
+			PROPAGATE TO TERMINAL 1;
+			RETURN FALSE;
+		END IF;
+		END IF;
+		
+		
 		
 		IF TRIM(whiteSpace FROM InputRoot.JSON.Data.sender_channel) = '1' THEN 
-			SET OutputRoot.JSON.Data = InputRoot.JSON.Data;
-			SET OutputRoot.JSON.Data.sender_channel='wallet';
-			SET Environment.Variables.Data.sender_channel = 'wallet';
-			SET Environment.Variables.Data.date_time = CURRENT_TIMESTAMP;
+			IF LENGTH(TRIM(whiteSpace FROM InputRoot.JSON.Data.sender_wallet_number)) <> 11 THEN
+				SET OutputRoot.JSON.Data.msg = 'please enter a valid wallet number for sender with 11 digits';
+				PROPAGATE TO TERMINAL 1;
+				RETURN FALSE;
+			ELSE IF NOT (STARTSWITH(Trim(whiteSpace FROM InputRoot.JSON.Data.sender_wallet_number), '010') OR 
+						STARTSWITH(Trim(whiteSpace FROM InputRoot.JSON.Data.sender_wallet_number), '011') OR
+						STARTSWITH(Trim(whiteSpace FROM InputRoot.JSON.Data.sender_wallet_number), '012') OR
+						STARTSWITH(Trim(whiteSpace FROM InputRoot.JSON.Data.sender_wallet_number), '015'))THEN
+				SET OutputRoot.JSON.Data.msg = 'sender wallet number must start with (010 or 011 or 012 or 015)';
+				PROPAGATE TO TERMINAL 1;
+				RETURN FALSE;
+			ELSE
+				SET Environment.Variables.Data.sender_wallet_number = TRIM(whiteSpace FROM InputRoot.JSON.Data.sender_wallet_number);
+				SET Environment.Variables.Data.sender_channel = 'wallet';
+				SET Environment.Variables.Data.date_time = CURRENT_TIMESTAMP;
+			END IF;
+			END IF;
+			
 		ELSE IF TRIM(whiteSpace FROM InputRoot.JSON.Data.sender_channel) = '2' THEN
-			SET OutputRoot.JSON.Data = InputRoot.JSON.Data;
-			SET OutputRoot.JSON.Data.sender_channel='account';
-			SET Environment.Variables.Data.sender_channel = 'account';
-			SET Environment.Variables.Data.date_time = CURRENT_TIMESTAMP;
+			IF LENGTH(TRIM(whiteSpace FROM InputRoot.JSON.Data.sender_acc_number)) <> 16 THEN
+				SET OutputRoot.JSON.Data.msg = 'please enter a valid account number for sender with 16 digits';
+				PROPAGATE TO TERMINAL 1;
+				RETURN FALSE;
+			ELSE 
+				SET Environment.Variables.Data.sender_acc_number = TRIM(whiteSpace FROM InputRoot.JSON.Data.sender_acc_number);
+				SET Environment.Variables.Data.sender_channel = 'account';
+				SET Environment.Variables.Data.date_time = CURRENT_TIMESTAMP;
+			END IF;
+			
 		ELSE IF TRIM(whiteSpace FROM InputRoot.JSON.Data.sender_channel) = '3' THEN
-			SET OutputRoot.JSON.Data = InputRoot.JSON.Data;
-			SET OutputRoot.JSON.Data.sender_channel='card';
-			SET Environment.Variables.Data.sender_channel = 'card';
-			SET Environment.Variables.Data.date_time = CURRENT_TIMESTAMP;
+			IF LENGTH(TRIM(whiteSpace FROM InputRoot.JSON.Data.sender_card_number)) <> 16 THEN
+				SET OutputRoot.JSON.Data.msg = 'please enter a valid card number for sender with 16 digits';
+				PROPAGATE TO TERMINAL 1;
+				RETURN FALSE;
+			ELSE 
+				SET Environment.Variables.Data.sender_card_number = TRIM(whiteSpace FROM InputRoot.JSON.Data.sender_card_number);
+				SET Environment.Variables.Data.sender_channel = 'card';
+				SET Environment.Variables.Data.date_time = CURRENT_TIMESTAMP;
+			END IF;
+		ELSE 
+			SET OutputRoot.JSON.Data.msg = 'please enter a valid channel for sender (1 for wallet - 2 for account - 3 for card)';
+			PROPAGATE TO TERMINAL 1;
+			RETURN FALSE;
 		END IF;
 		END IF;
 		END IF;
+		
+		
 		IF TRIM(whiteSpace FROM InputRoot.JSON.Data.receiver_channel) = '1' THEN 
-			SET OutputRoot.JSON.Data.receiver_channel='wallet';
-			SET Environment.Variables.Data.receiver_channel = 'wallet';
-			SET Environment.Variables.Data.date_time = CURRENT_TIMESTAMP;
+			IF LENGTH(TRIM(whiteSpace FROM InputRoot.JSON.Data.receiver_wallet_number)) <> 11 THEN
+				SET OutputRoot.JSON.Data.msg = 'please enter a valid wallet number for sender with 11 digits';
+				PROPAGATE TO TERMINAL 1;
+				RETURN FALSE;
+			ELSE IF NOT (STARTSWITH(Trim(whiteSpace FROM InputRoot.JSON.Data.receiver_wallet_number), '010') OR 
+						STARTSWITH(Trim(whiteSpace FROM InputRoot.JSON.Data.receiver_wallet_number), '011') OR
+						STARTSWITH(Trim(whiteSpace FROM InputRoot.JSON.Data.receiver_wallet_number), '012') OR
+						STARTSWITH(Trim(whiteSpace FROM InputRoot.JSON.Data.receiver_wallet_number), '015'))THEN
+				SET OutputRoot.JSON.Data.msg = 'receiver wallet number must start with (010 or 011 or 012 or 015)';
+				PROPAGATE TO TERMINAL 1;
+				RETURN FALSE;
+			ELSE
+				SET Environment.Variables.Data.receiver_wallet_number = TRIM(whiteSpace FROM InputRoot.JSON.Data.receiver_wallet_number);
+				SET Environment.Variables.Data.receiver_channel = 'wallet';
+				SET Environment.Variables.Data.date_time = CURRENT_TIMESTAMP;
+			END IF;
+			END IF;
+			
 		ELSE IF TRIM(whiteSpace FROM InputRoot.JSON.Data.receiver_channel) = '2' THEN
-			SET OutputRoot.JSON.Data.receiver_channel='account';
-			SET Environment.Variables.Data.receiver_channel = 'account';
-			SET Environment.Variables.Data.date_time = CURRENT_TIMESTAMP;
+			IF LENGTH(TRIM(whiteSpace FROM InputRoot.JSON.Data.receiver_acc_number)) <> 16 THEN
+				SET OutputRoot.JSON.Data.msg = 'please enter a valid account number for receiver with 16 digits';
+				PROPAGATE TO TERMINAL 1;
+				RETURN FALSE;
+			ELSE 
+				SET Environment.Variables.Data.receiver_acc_number = TRIM(whiteSpace FROM InputRoot.JSON.Data.receiver_acc_number);
+				SET Environment.Variables.Data.receiver_channel = 'account';
+				SET Environment.Variables.Data.date_time = CURRENT_TIMESTAMP;
+			END IF;
+			
 		ELSE IF TRIM(whiteSpace FROM InputRoot.JSON.Data.receiver_channel) = '3' THEN
-			SET OutputRoot.JSON.Data.receiver_channel='card';
-			SET Environment.Variables.Data.receiver_channel = 'card';
-			SET Environment.Variables.Data.date_time = CURRENT_TIMESTAMP;
+			IF LENGTH(TRIM(whiteSpace FROM InputRoot.JSON.Data.receiver_card_number)) <> 16 THEN
+				SET OutputRoot.JSON.Data.msg = 'please enter a valid card number for receiver with 16 digits';
+				PROPAGATE TO TERMINAL 1;
+				RETURN FALSE;
+			ELSE 
+				SET Environment.Variables.Data.receiver_card_number = TRIM(whiteSpace FROM InputRoot.JSON.Data.receiver_card_number);
+				SET Environment.Variables.Data.receiver_channel = 'card';
+				SET Environment.Variables.Data.date_time = CURRENT_TIMESTAMP;
+			END IF;
+			
+		ELSE 
+			SET OutputRoot.JSON.Data.msg = 'please enter a valid channel for receiver (1 for wallet - 2 for account - 3 for card)';
+			PROPAGATE TO TERMINAL 1;
+			RETURN FALSE;
 		END IF;
 		END IF;
 		END IF;
+		
+		
+		SET OutputRoot.JSON.Data = Environment.Variables.Data;
 		
 ----		SET Environment.Variables.sender_Data.sender_id = InputRoot.JSON.Data.sender_id;
 ----		SET Environment.Variables.sender_Data.sender_name = InputRoot.JSON.Data.sender_name;

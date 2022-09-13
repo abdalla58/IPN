@@ -5,7 +5,7 @@ CREATE COMPUTE MODULE user_flow_Compute1
 	BEGIN
 		
 		IF InputRoot.JSON.Data.msg = 'validation DONE' THEN
-			SET OutputLocalEnvironment.Destination.File.Directory = 'C:\Users\Lap Smart\IBM\ACET12\workspace\User\registerd users';
+			SET OutputLocalEnvironment.Destination.File.Directory = 'C:\Users\Mahmoud Mohsen\IBM\ACET12\workspace\USER\registerd users';
 			SET OutputLocalEnvironment.Destination.File.Name = InputRoot.JSON.Data.national_id || ' ' ||  Environment.Variables.Data.channel || '.txt';
 			
 			SET OutputRoot.JSON.Data.national_id = InputRoot.JSON.Data.national_id;
@@ -20,11 +20,11 @@ CREATE COMPUTE MODULE user_flow_Compute1
 			SET OutputRoot.JSON.Data.acc_balance = InputRoot.JSON.Data.acc_balance;
 
 		ELSE IF InputRoot.JSON.Data.msg = 'national id not found' THEN
-			SET OutputLocalEnvironment.Destination.File.Directory = 'C:\Users\Lap Smart\IBM\ACET12\workspace\User\invalid users';
+			SET OutputLocalEnvironment.Destination.File.Directory = 'C:\Users\Mahmoud Mohsen\IBM\ACET12\workspace\USER\invalid users';
 			SET OutputLocalEnvironment.Destination.File.Name = 'enterd id not found.txt';
 			SET OutputRoot.JSON.Data = Environment.Variables.Data ;
 		ELSE 
-			SET OutputLocalEnvironment.Destination.File.Directory = 'C:\Users\Lap Smart\IBM\ACET12\workspace\User\invalid users';
+			SET OutputLocalEnvironment.Destination.File.Directory = 'C:\Users\Mahmoud Mohsen\IBM\ACET12\workspace\USER\invalid users';
 			SET OutputLocalEnvironment.Destination.File.Name =  'error registration for user with id ' || Environment.Variables.Data.national_id || '.txt';
 			SET OutputRoot.JSON.Data = Environment.Variables.Data ;
 		END IF;

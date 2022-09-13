@@ -6,7 +6,7 @@ CREATE COMPUTE MODULE pspTrans_flow_Compute4
 		-- CALL CopyMessageHeaders();
 		
 		IF InputRoot.JSON.Data.add = true THEN
-			SET OutputRoot.JSON.Data.msq = 'Transaction success, please check your balance';
+			SET OutputRoot.JSON.Data.msg = 'Transaction success, please check your balance';
 		END IF;		 
 		 
 		
